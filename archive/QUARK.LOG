@@ -1,0 +1,60 @@
+QuArKLog> QuArK started at 11/25/2018 4:40:03 PM
+QuArKLog> QuArK version is QuArK 6.6 Beta 7
+QuArKLog> Loglevel is 20
+SysLog> CPU:
+SysLog> 4 x Intel Intel Core - 3912 MHz
+SysLog> Submodel: Primary
+SysLog> Model ID: Family 6  Model 14  Stepping 9  Level 22
+SysLog> 
+SysLog> MEMORY:
+SysLog> Physical Memory Total: 2,147,483,647 Bytes
+SysLog> Physical Memory Free: 2,147,483,647 Bytes
+SysLog> Virtual Memory Free: 2,147,287,039 Bytes
+SysLog> 
+SysLog> OS:
+SysLog> Platform: Windows 7 or Windows Server 2008 R2
+SysLog> Version: Uniprocessor Free 6.1.7601
+SysLog> Service Pack: 1
+SysLog> Type: Workstation
+SysLog> Running under Wow64
+SysLog> 
+SysLog> VIDEO:
+SysLog> 
+SysLog> DIRECTX:
+SysLog> Installed version: 4.09.00.0904
+PythonLog> PYTHON:
+PythonLog> Version: 2.4.4 (#71, Oct 18 2006, 08:34:43) [MSC v.1310 32 bit (Intel)]
+PythonLog> DLL: C:\Program Files (x86)\QuArK 6.6\dlls\python.dll
+Log> Error when calling a Windows API:
+Call: Loading Glide DLL (1)
+Reason: Module not found.
+
+Log> Error when calling a Windows API:
+Call: Loading Glide DLL (1)
+Reason: Module not found.
+
+Log> Error when calling a Windows API:
+Call: Loading Glide DLL (1)
+Reason: Module not found.
+
+Log> Error when calling a Windows API:
+Call: Loading Glide DLL (1)
+Reason: Module not found.
+
+Log> Error when calling a Windows API:
+Call: Loading Glide DLL (1)
+Reason: Module not found.
+
+Log> Error when calling a Windows API:
+Call: Loading Glide DLL (1)
+Reason: Module not found.
+
+Log> Error when calling a Windows API:
+Call: Loading Glide DLL (1)
+Reason: Module not found.
+
+Log> Error when calling a Windows API:
+Call: Loading Glide DLL (1)
+Reason: Module not found.
+
+QuArKLog> QuArK closed at 11/25/2018 5:19:03 PM
