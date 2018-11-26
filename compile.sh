@@ -79,6 +79,7 @@ fi
 echo "COMPILE OK"
 
 if [ -f "$bsp_file" ]; then
+	cp "$bsp_file" "$repo_path/bsp/$map.bsp"
 	if [ "$game_run" == "yes" ]; then
 		mkdir -p "$game_path/cstrike_downloads/maps"
 		cp "$bsp_file" "$game_path/cstrike_downloads/$bsp_file"
