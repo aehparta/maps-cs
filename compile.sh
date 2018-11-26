@@ -1,12 +1,18 @@
 #!/bin/bash
 
-ambient_r="0.001"
-ambient_g="0.001"
-ambient_b="0.002"
+# set to no in $map/attributes.txt to disable
+game_run="yes"
 
+# set to custom in $map/attributes.txt
+ambient_r="0.0"
+ambient_g="0.0"
+ambient_b="0.0"
+
+threads=4
+
+game_path="$HOME/.steam/steam/steamapps/common/Half-Life"
 repo_path=`pwd`
 tools_path="$repo_path/zhlt-vluzacn/bin"
-lights_file="$repo_path/lights.rad"
 
 hlcsg_opt="-nowadtextures"
 hlbsp_opt=""
@@ -16,20 +22,32 @@ hlrad_opt=""
 if [ "$2" == "fast" ]; then
 	hlvis_opt="$hlvis_opt -fast"
 	hlrad_opt="$hlrad_opt -fast"
-else
+elif [ "$2" == "final" ]; then
 	hlvis_opt="$hlvis_opt -full"
 	hlrad_opt="$hlrad_opt -extra"
 fi
 
-threads=4
-game_path="$HOME/Documents/Half-Life"
-
 map="$1"
+
+# load custom attributes
+if [ -f "$map/attributes.txt" ]; then
+	source "$map/attributes.txt"
+fi
+
 map_file="maps/$map.map"
+bsp_file="maps/$map.bsp"
+
+lights_file="$repo_path/$map/lights.rad"
+if [ ! -f "$lights_file" ]; then
+	lights_file="$repo_path/lights.rad"
+fi
 
 cd "$game_path/tmpQuArK"
 
-if [ ! -f "$map_file" ]; then
+if [ "$map" == "" ]; then
+	echo "usage: <map> [fast|final]"
+	exit 1
+elif [ ! -f "$map_file" ]; then
 	echo "map_file file not found: $game_path/tmpQuArK/$map_file"
 	exit 1
 fi
@@ -60,6 +78,15 @@ fi
 
 echo "COMPILE OK"
 
-cd ..
+if [ -f "$bsp_file" ]; then
+	if [ "$game_run" == "yes" ]; then
+		mkdir -p "$game_path/cstrike_downloads/maps"
+		cp "$bsp_file" "$game_path/cstrike_downloads/$bsp_file"
+		steam -applaunch 10 -console +sv_lan 1 +set sv_cheats 1 +map "$map"
+	fi
+else
+	echo "ERROR: bsp file does not exists: $bsp_file"
+	exit 1
+fi
 
-# wine hl.exe -console -dev -zone 1024 +set sv_cheats 1 -game tmpQuArK +map "$1"
+exit 0

@@ -1,0 +1,4 @@
+
+ambient_r="0.001"
+ambient_g="0.001"
+ambient_b="0.002"
