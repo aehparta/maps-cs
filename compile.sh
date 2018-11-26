@@ -22,7 +22,7 @@ hlrad_opt=""
 if [ "$2" == "fast" ]; then
 	hlvis_opt="$hlvis_opt -fast"
 	hlrad_opt="$hlrad_opt -fast"
-elif [ "$2" == "final" ]; then
+else
 	hlvis_opt="$hlvis_opt -full"
 	hlrad_opt="$hlrad_opt -extra"
 fi
@@ -45,7 +45,7 @@ fi
 cd "$game_path/tmpQuArK"
 
 if [ "$map" == "" ]; then
-	echo "usage: <map> [fast|final]"
+	echo "usage: <map> [fast]"
 	exit 1
 elif [ ! -f "$map_file" ]; then
 	echo "map_file file not found: $game_path/tmpQuArK/$map_file"
