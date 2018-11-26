@@ -2,7 +2,7 @@
 
 quark_path="/home/aehparta/.wine/drive_c/Program Files (x86)/QuArK 6.6"
 if [ -d "$quark_path" ]; then
-    ln -s "duges.qrk" "$quark_path/addons/duges.qrk"
+    ln -s "$PWD/duges.qrk" "$quark_path/duges.qrk"
 else
     echo "ERROR: QuArK path not found: $quark_path"
 fi
