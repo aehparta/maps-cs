@@ -1,6 +1,6 @@
 #!/bin/bash
 
-quark_path="/home/aehparta/.wine/drive_c/Program Files (x86)/QuArK 6.6"
+quark_path="$HOME/.wine/drive_c/Program Files (x86)/QuArK 6.6"
 if [ -d "$quark_path" ]; then
     ln -s "$PWD/duges.qrk" "$quark_path/duges.qrk"
 else
