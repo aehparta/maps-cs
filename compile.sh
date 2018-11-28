@@ -14,10 +14,17 @@ game_path="$HOME/.steam/steam/steamapps/common/Half-Life"
 repo_path=`pwd`
 tools_path="$repo_path/zhlt-vluzacn/bin"
 
-hlcsg_opt="-nowadtextures"
+map="$1"
+
+hlcsg_opt=""
 hlbsp_opt=""
 hlvis_opt=""
 hlrad_opt=""
+
+# load custom attributes
+if [ -f "$map/attributes.txt" ]; then
+	source "$map/attributes.txt"
+fi
 
 if [ "$2" == "fast" ]; then
 	hlvis_opt="$hlvis_opt -fast"
@@ -25,13 +32,6 @@ if [ "$2" == "fast" ]; then
 else
 	hlvis_opt="$hlvis_opt -full"
 	hlrad_opt="$hlrad_opt -extra"
-fi
-
-map="$1"
-
-# load custom attributes
-if [ -f "$map/attributes.txt" ]; then
-	source "$map/attributes.txt"
 fi
 
 map_file="maps/$map.map"
@@ -52,7 +52,7 @@ elif [ ! -f "$map_file" ]; then
 	exit 1
 fi
 
-$tools_path/hlcsg -threads $threads -low $hlcsg_opt "$map_file"
+$tools_path/hlcsg -threads $threads -low -nowadtextures $hlcsg_opt "$map_file"
 if [ "$?" != "0" ]; then
 	echo "ERROR: hlcsg failed"
 	exit 1

@@ -2,8 +2,3 @@
 ambient_r="0.001"
 ambient_g="0.001"
 ambient_b="0.002"
-
-hlcsg_opt="-verbose"
-hlbsp_opt="-verbose"
-hlvis_opt=""
-hlrad_opt="-verbose"
