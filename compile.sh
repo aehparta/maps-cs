@@ -1,7 +1,21 @@
 #!/bin/bash
 
-# set to no in $map/attributes.txt to disable
-game_run="yes"
+game_run="no"
+mode="final"
+
+for arg in ${@:2}; do
+	case $arg in
+		run)
+			game_run="yes"
+			;;
+		fast)
+			mode="fast"
+			;;
+		leaks)
+			mode="leak"
+			;;
+	esac
+done
 
 # set to custom in $map/attributes.txt
 ambient_r="0.0"
@@ -26,7 +40,9 @@ if [ -f "$map/attributes.txt" ]; then
 	source "$map/attributes.txt"
 fi
 
-if [ "$2" == "fast" ]; then
+if [ "$mode" == "leak" ]; then
+	hlbsp_opt="$hlbsp_opt -leakonly"
+elif [ "$mode" == "fast" ]; then
 	hlvis_opt="$hlvis_opt -fast"
 	hlrad_opt="$hlrad_opt -fast"
 else
@@ -62,6 +78,10 @@ $tools_path/hlbsp -threads $threads -low $hlbsp_opt "$map_file"
 if [ "$?" != "0" ]; then
 	echo "ERROR: hlbsp failed"
 	exit 1
+fi
+if [ "$mode" == "leak" ]; then
+	echo "LEAK CHECK OK"
+	exit 0
 fi
 
 $tools_path/hlvis -threads $threads -low $hlvis_opt "$map_file"
