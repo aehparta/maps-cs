@@ -1,7 +1,7 @@
 #!/bin/bash
 
 game_run="no"
-mode="final"
+mode=""
 
 for arg in ${@:2}; do
 	case $arg in
@@ -10,6 +10,9 @@ for arg in ${@:2}; do
 			;;
 		fast)
 			mode="fast"
+			;;
+		final)
+			mode="final"
 			;;
 		leaks)
 			mode="leak"
@@ -68,41 +71,43 @@ elif [ ! -f "$map_file" ]; then
 	exit 1
 fi
 
-$tools_path/hlcsg -threads $threads -low -nowadtextures $hlcsg_opt "$map_file"
-if [ "$?" != "0" ]; then
-	echo "ERROR: hlcsg failed"
-	exit 1
-fi
+if [ "$mode" != "" ]; then
+	$tools_path/hlcsg -threads $threads -low -nowadtextures $hlcsg_opt "$map_file"
+	if [ "$?" != "0" ]; then
+		echo "ERROR: hlcsg failed"
+		exit 1
+	fi
 
-$tools_path/hlbsp -threads $threads -low $hlbsp_opt "$map_file"
-if [ "$?" != "0" ]; then
-	echo "ERROR: hlbsp failed"
-	exit 1
-fi
-if [ "$mode" == "leak" ]; then
-	echo "LEAK CHECK OK"
-	exit 0
-fi
+	$tools_path/hlbsp -threads $threads -low $hlbsp_opt "$map_file"
+	if [ "$?" != "0" ]; then
+		echo "ERROR: hlbsp failed"
+		exit 1
+	fi
+	if [ "$mode" == "leak" ]; then
+		echo "LEAK CHECK OK"
+		exit 0
+	fi
 
-$tools_path/hlvis -threads $threads -low $hlvis_opt "$map_file"
-if [ "$?" != "0" ]; then
-	echo "ERROR: hlvis failed"
-	exit 1
-fi
+	$tools_path/hlvis -threads $threads -low $hlvis_opt "$map_file"
+	if [ "$?" != "0" ]; then
+		echo "ERROR: hlvis failed"
+		exit 1
+	fi
 
-$tools_path/hlrad -threads $threads -low -lights "$lights_file" -ambient "$ambient_r" "$ambient_g" "$ambient_b" $hlrad_opt "$map_file"
-if [ "$?" != "0" ]; then
-	echo "ERROR: hlrad failed"
-	exit 1
-fi
+	$tools_path/hlrad -threads $threads -low -lights "$lights_file" -ambient "$ambient_r" "$ambient_g" "$ambient_b" $hlrad_opt "$map_file"
+	if [ "$?" != "0" ]; then
+		echo "ERROR: hlrad failed"
+		exit 1
+	fi
 
-echo "COMPILE OK"
+	echo "COMPILE OK"
+fi
 
 if [ -f "$bsp_file" ]; then
 	cp "$bsp_file" "$repo_path/bsp/$map.bsp"
+	mkdir -p "$game_path/cstrike_downloads/maps"
+	cp "$bsp_file" "$game_path/cstrike_downloads/$bsp_file"
 	if [ "$game_run" == "yes" ]; then
-		mkdir -p "$game_path/cstrike_downloads/maps"
-		cp "$bsp_file" "$game_path/cstrike_downloads/$bsp_file"
 		steam -applaunch 10 -console +sv_lan 1 +set sv_cheats 1 +map "$map"
 	fi
 else
