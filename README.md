@@ -19,5 +19,5 @@ cd quark
 
 ## Compile
 ```sh
-./compile.sh <map> [fast]
+./compile.sh <map> <fast|final> [run]
 ```
