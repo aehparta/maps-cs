@@ -1,0 +1,4 @@
+
+ambient_r="0.1"
+ambient_g="0.1"
+ambient_b="0.2"
